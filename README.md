@@ -6,7 +6,38 @@ This is **not** finished and doesn't work properly
 
 I'm starting to implement different methods to display IPv6
 
-## Expand a short IPv6 Address to full size
+
+## Usage view IPv6 converted to Binary and showing Subnet Prefix Bit length
+```sh
+composer ip 123::ff/63
+```
+
+```sh
+> Toggen\Ipv6\Runner::run
+       Command line: 123::ff/63
+           Expanded: 0123:0000:0000:0000:0000:0000:0000:00ff
+
+
+   0   1   2   3    0   0   0   0    0   0   0   0    0   0   0   0    0   0   0   0    0   0   0   0    0   0   0   0    0   0   f   f
+0000000100100011 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0000000011111111
+                                                                 * /63
+
+```
+
+## Usage convert MAC Address into IPv6 Local Address
+```sh
+ composer mac 00:FF:7A:8D:B2:4E
+```
+
+Output 
+
+```
+> Toggen\Ipv6\Runner::mac
+Input: 00:FF:7A:78:92:3E
+Output: fe80::2ff7:afff:e789:23e
+```
+
+## Expand a shortened IPv6 Address to full size
 
 ```php
 $ipv6 = new IPv6Util();
@@ -27,17 +58,13 @@ $binary = $ipv6->formatHexBinaryPrefix($expanded);
 
 echo $ipv6->displayHexBin($binary) . PHP_EOL;
 
-
-/*
-ouput
-fe80:0000:0000:0000:0000:61ff:fefc:a356
-   f   e   8   0    0   0   0   0    0   0   0   0    0   0   0   0    0   0   0   0    6   1   f   f    f   e   f   c    a   3   5   6
-1111111010000000 0000000000000000 0000000000000000 0000000000000000 0000000000000000 0110000111111111 1111111011111100 1010001101010110
-                                                       * /53
-*/
 ```
 
 
 ## Todo
 MAC to IPv6 convertor
 Refactor so it makes sense... 
+
+
+Refs: https://blog.apnic.net/2018/08/10/how-to-calculating-ipv6-subnets-outside-the-nibble-boundary/
+

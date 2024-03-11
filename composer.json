@@ -1,0 +1,29 @@
+{
+    "name": "toggen/ipv6",
+    "description": "IPv6 Utilities",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Toggen\\Ipv6\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "James McDonald",
+            "email": "james@toggen.com.au"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "composer/composer": "2.7.x-dev"
+    },
+    "scripts": {
+        "ip": [
+            "Toggen\\Ipv6\\Runner::run"
+        ],
+        "mac": [
+            "Toggen\\Ipv6\\Runner::mac"
+        ]
+    }
+}
