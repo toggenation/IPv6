@@ -12,11 +12,24 @@ class Runner
         if (count($event->getArguments()) > 0) {
             $ip = $event->getArguments()[0];
 
-            $ipv6 = new IPv6Util($ip);
+            (new IPv6Util($ip))->run();
         } else {
             echo "Please specify an IPv6 address on the command line\n";
         }
     }
+
+    public static function expand(Event $event)
+    {
+        if (count($event->getArguments()) > 0) {
+            $ip = $event->getArguments()[0];
+
+            echo (new IPv6Util($ip))->expand();
+            echo PHP_EOL;
+        } else {
+            echo "Please specify an IPv6 address on the command line\n";
+        }
+    }
+
 
     public static function mac(Event $event)
     {

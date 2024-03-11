@@ -11,11 +11,6 @@ class IPv6Util
 
     public function __construct(public ?string $ip = null)
     {
-
-        if (is_null($ip)) {
-            throw new Exception("You need to pass an IPv6 address to the constructor of this class");
-        }
-
         $this->validateInput($ip);
 
         echo $this->padLeft('Command line:', 20) . ' ' . $ip . PHP_EOL;
@@ -25,8 +20,11 @@ class IPv6Util
 
             $this->validatePrefix($prefix);
 
+            $this->ip = $ip;
+
             $this->prefix = $prefix;
         } else {
+
             $this->prefix = 64;
         }
 
@@ -37,8 +35,11 @@ class IPv6Util
         if (inet_pton($ip) === false) {
             throw new Exception('Invalid IPv6 Address ' . $ip);
         }
+    }
 
-        $expanded = $this->expand($ip);
+    public function run()
+    {
+        $expanded = $this->expand($this->ip);
         $formatted = $this->formatHexBinaryPrefix($expanded);
 
         echo $this->padLeft('Expanded:', 20) . ' ' . $expanded . PHP_EOL;
@@ -89,13 +90,11 @@ class IPv6Util
         return implode(':', $newChunk);
     }
 
-    public function expand(string $shortenedIp)
+    public function expand()
     {
-        $this->checkValid($shortenedIp);
+        $this->checkValid($this->ip);
 
-        $blocksOfFour = $this->makeAllHextetsFourLong($shortenedIp);
-
-
+        $blocksOfFour = $this->makeAllHextetsFourLong($this->ip);
 
         return $this->replace($blocksOfFour);
     }

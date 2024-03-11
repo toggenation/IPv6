@@ -19,6 +19,9 @@
         "composer/composer": "2.7.x-dev"
     },
     "scripts": {
+        "expand": [
+            "Toggen\\Ipv6\\Runner::expand"
+        ],
         "ip": [
             "Toggen\\Ipv6\\Runner::run"
         ],
