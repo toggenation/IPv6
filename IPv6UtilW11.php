@@ -125,7 +125,7 @@ class IPv6UtilW11
         return sprintf('%04s', $chunk);
     }
 
-    public function binary(string $expandedIp)
+    public function formatHexBinaryPrefix(string $expandedIp)
     {
         $chunks = [];
         foreach (explode(":", $expandedIp) as $key => $chunk) {
@@ -189,10 +189,10 @@ $ipv6 = new IPv6UtilW11('fe80:0:0:5000:2D8:61ff:feFC:A356/53');
 // echo $ipv6->expand('fe80::2:6') . PHP_EOL;
 // echo $ipv6->expand('fe80::6') . PHP_EOL;
 $expanded = $ipv6->expand('fe80:0:0:5500:2D8:61ff:feFC:A356');
+$expanded = $ipv6->expand('fe80::61ff:feFC:A356');
 
 echo $expanded . PHP_EOL;
 
-$binary = $ipv6->binary($expanded);
-echo $ipv6->displayHexBin($binary) . PHP_EOL;
+$binary = $ipv6->formatHexBinaryPrefix($expanded);
 
-// echo $binary . PHP_EOL;
+echo $ipv6->displayHexBin($binary) . PHP_EOL;
