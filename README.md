@@ -2,7 +2,7 @@
 
 This is me trying to get a handle on IPv6. 
 
-The aim is to try and understand which bits are getting flipped and how changing prefixes can effect the subnet addressing
+The aim is to try and understand which bits are getting flipped and how changing prefixes and hextet values can effect the subnet addressing
 
 # Install
 
@@ -10,8 +10,6 @@ clone this repo
 
 ```
 composer install
-
-composer dump-autoload
 ```
 
 
