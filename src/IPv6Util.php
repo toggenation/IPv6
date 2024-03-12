@@ -4,8 +4,10 @@ namespace Toggen\Ipv6;
 
 use Exception;
 
+
 class IPv6Util
 {
+    use UtilTrait;
 
     public int $prefix;
 
@@ -69,10 +71,6 @@ class IPv6Util
         }
     }
 
-    private function padLeft($message, int $padding = 20)
-    {
-        return str_pad(string: $message, length: $padding, pad_type: STR_PAD_LEFT);
-    }
 
     private function makeAllHextetsFourLong(string $ip)
     {

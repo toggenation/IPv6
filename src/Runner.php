@@ -7,6 +7,8 @@ use Composer\Installer\PackageEvent;
 
 class Runner
 {
+    use UtilTrait;
+
     public static function run(Event $event)
     {
         if (count($event->getArguments()) > 0) {
@@ -23,8 +25,7 @@ class Runner
         if (count($event->getArguments()) > 0) {
             $ip = $event->getArguments()[0];
 
-            echo (new IPv6Util($ip))->expand();
-            echo PHP_EOL;
+            echo self::padLeft('Output:', 20) . ' ' . (new IPv6Util($ip))->expand() . PHP_EOL;
         } else {
             echo "Please specify an IPv6 address on the command line\n";
         }

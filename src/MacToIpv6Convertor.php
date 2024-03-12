@@ -6,13 +6,14 @@ use Exception;
 
 class MacToIpv6Convertor
 {
+    use UtilTrait;
     public function __construct(public ?string $mac)
     {
         if (!filter_var($mac, FILTER_VALIDATE_MAC)) {
             throw new Exception("Please specify a valid MAC Address");
         }
-        echo "Input: $mac\n";
-        echo "Output: " . $this->convert($mac) . "\n";
+        echo $this->padLeft("Input: ", 20) . "$mac\n";
+        echo $this->padLeft("MAC to IPv6: ", 20) . $this->convert($mac) . "\n";
     }
 
     public function convert(string $mac)
