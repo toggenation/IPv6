@@ -18,11 +18,6 @@ class MacToIpv6Convertor
 
     public function convert(string $mac)
     {
-        //00-FF-7A-8D-B2-4E
-        //00:FF:7A:8D:B2:4E
-        //c42f.90e7.6f53
-        //f4:92:bf:84:20:1b
-        $mac = $this->normalizeMACAddress($mac);
 
         $ip = $this->buildIpv6FromMac($mac);
 
@@ -57,6 +52,12 @@ class MacToIpv6Convertor
 
     private function buildIpv6FromMac($mac)
     {
+        //00-FF-7A-8D-B2-4E
+        //00:FF:7A:8D:B2:4E
+        //c42f.90e7.6f53
+        //f4:92:bf:84:20:1b
+        $mac = $this->normalizeMACAddress($mac);
+
         $chunks = explode(':', $mac);
 
         $chunks[0] = $this->flipSeventhBit($chunks[0]);
