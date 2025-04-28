@@ -22,7 +22,7 @@ class MacToIpv6Convertor
         //00:FF:7A:8D:B2:4E
         //c42f.90e7.6f53
         //f4:92:bf:84:20:1b
-        $mac = $this->normalizeMac($mac);
+        $mac = $this->normalizeMACAddress($mac);
 
         $ip = $this->buildIpv6FromMac($mac);
 
@@ -65,24 +65,22 @@ class MacToIpv6Convertor
     }
 
     /**
-     * Takes different formats of mac and returns 
+     * Takes different formats of MAC and returns 00:ff:7a:8d:b2:4e
      * 00-FF-7A-8D-B2-4E
      * 00:FF:7A:8D:B2:4E
      * c42f.90e7.6f53
      * 
-     * 
-     * 
      * @param string $mac 
      * @return string 
      */
-    private function normalizeMac(string $mac)
+    private function normalizeMACAddress(string $mac)
     {
         $mac = strtolower($mac);
 
         $stripDelimeters = str_replace([":", '-', '.'], '', $mac);
 
         $normalized = implode(":", str_split($stripDelimeters, 2));
-
+        var_dump($normalized);
         return $normalized;
     }
 }

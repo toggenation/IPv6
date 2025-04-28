@@ -41,7 +41,8 @@ class IPv6Util
 
     public function run()
     {
-        $expanded = $this->expand($this->ip);
+        $expanded = $this->expandIpv6($this->ip);
+
         $formatted = $this->formatHexBinaryPrefix($expanded);
 
         echo $this->padLeft('Expanded:', 20) . ' ' . $expanded . PHP_EOL;
@@ -51,14 +52,7 @@ class IPv6Util
 
     private function validateInput(string $ip)
     {
-        $validCharsOnly = '0123456789abcdef:/';
-        $validChars = str_split($validCharsOnly);
-
-        foreach (str_split($ip) as $char) {
-            if (!in_array($char, $validChars)) {
-                throw new Exception("Invalid characters. Only " . $validCharsOnly . ' allowed');
-            }
-        }
+        return filter_var($ip, FILTER_VALIDATE_IP);
     }
 
     private function validatePrefix(mixed $prefix)
@@ -71,30 +65,16 @@ class IPv6Util
         }
     }
 
-
-    private function makeAllHextetsFourLong(string $ip)
-    {
-        $exploded = explode(':', $ip);
-
-        $newChunk = [];
-
-        foreach ($exploded as $key => $chunk) {
-            $newChunk[$key] = $chunk;
-            if (strlen($chunk) > 0 && strlen($chunk) < 4) {
-                $newChunk[$key] = $this->expandToFour($chunk);
-            }
-        }
-
-        return implode(':', $newChunk);
-    }
-
     public function expand()
     {
-        $this->checkValid($this->ip);
+        return $this->expandIpv6($this->ip);
+    }
 
-        $blocksOfFour = $this->makeAllHextetsFourLong($this->ip);
+    public function expandIpv6(string $ip): string
+    {
+        $hex = unpack("H*hex", inet_pton($ip));
 
-        return $this->replace($blocksOfFour);
+        return substr(preg_replace("/([A-f0-9]{4})/", "$1:", $hex['hex']), 0, -1);
     }
 
     private function replace(string $ip)
@@ -131,14 +111,10 @@ class IPv6Util
         }
     }
 
-    public function expandToFour(string $chunk)
-    {
-        return sprintf('%04s', $chunk);
-    }
-
     public function formatHexBinaryPrefix(string $expandedIp)
     {
         $chunks = [];
+
         foreach (explode(":", $expandedIp) as $key => $chunk) {
             $chunks['hex'][$key] = implode('', array_map(function ($chr) {
                 return str_pad($chr, 4, ' ', STR_PAD_LEFT);
