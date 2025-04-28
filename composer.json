@@ -18,6 +18,11 @@
     "require": {
         "composer/composer": "2.7.x-dev"
     },
+    "scripts-descriptions": {
+        "expand": "Expand IPv6 (fe80::1) to full form (fe80:0000:0000:0000:0000:0000:0000:0001)",
+        "ip": "Convert IPv6 to binary and show bit where subnet ends",
+        "mac": "Convert a MAC address (00:ff:7a:8d:b2:4e) to an IPv6 address (fe80::2ff7:afff:e8db:24e)"
+    },
     "scripts": {
         "expand": [
             "Toggen\\Ipv6\\Runner::expand"
